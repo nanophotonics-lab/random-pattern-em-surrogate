@@ -1,0 +1,117 @@
+{
+ "input_output": {
+  "input_channels": [
+   "normalized eps_r = clip((eps_r - lo) / (hi - lo), 0, 1), lo = min(2.1, min eps_r) (= 1.0 with air), hi = max(16.0, max eps_r)",
+   "x coordinate: linspace(-1, 1, 64) along columns",
+   "y coordinate: linspace(-1, 1, 128) along rows"
+  ],
+  "input_shape": "(batch, 3, 128, 64)",
+  "output_channels": [
+   "Re(hz) normalized",
+   "Im(hz) normalized"
+  ],
+  "denormalization": "hz_channel = output * output_std[c] + output_mean[c]"
+ },
+ "models": {
+  "fno": {
+   "paper_label": "FNO",
+   "architecture": "fno",
+   "hyperparameters": {
+    "modes_x": 9,
+    "modes_y": 9,
+    "width": 64,
+    "depth": 4,
+    "act": "gelu",
+    "pad_ratio": 0.0,
+    "variant": "basic",
+    "spectral_width": null,
+    "share_spectral_weights": false
+   },
+   "parameters": 5329602,
+   "selected_epoch": 200,
+   "training_loss": "rel_l2"
+  },
+  "ffno": {
+   "paper_label": "F-FNO",
+   "architecture": "ffno",
+   "hyperparameters": {
+    "modes_x": 20,
+    "modes_y": 20,
+    "width": 96,
+    "depth": 8,
+    "act": "gelu"
+   },
+   "parameters": 5982626,
+   "selected_epoch": 200,
+   "training_loss": "rel_l2"
+  },
+  "unet": {
+   "paper_label": "U-Net",
+   "architecture": "unet",
+   "hyperparameters": {
+    "base_channels": 32,
+    "num_down": 4,
+    "max_channels": 256,
+    "norm_type": "group",
+    "num_groups": 8,
+    "use_strided_conv_down": true,
+    "bilinear": true,
+    "act": "gelu"
+   },
+   "parameters": 5488258,
+   "selected_epoch": 198,
+   "training_loss": "rel_l2"
+  },
+  "dilresnet": {
+   "paper_label": "DilResNet",
+   "architecture": "dilresnet",
+   "hyperparameters": {
+    "width": 192,
+    "depth": 8,
+    "dilation_cycle": 4,
+    "kernel_size": 3,
+    "norm_type": "group",
+    "num_groups": 8,
+    "act": "gelu"
+   },
+   "parameters": 5352770,
+   "selected_epoch": 196,
+   "training_loss": "rel_l2"
+  },
+  "fno_wave_residual": {
+   "paper_label": "FNO + wave-equation residual",
+   "architecture": "fno",
+   "hyperparameters": {
+    "modes_x": 9,
+    "modes_y": 9,
+    "width": 64,
+    "depth": 4,
+    "act": "gelu",
+    "pad_ratio": 0.0,
+    "variant": "basic",
+    "spectral_width": null,
+    "share_spectral_weights": false
+   },
+   "parameters": 5329602,
+   "selected_epoch": 200,
+   "training_loss": "rel_l2+pi"
+  },
+  "unet_wave_residual": {
+   "paper_label": "U-Net + wave-equation residual",
+   "architecture": "unet",
+   "hyperparameters": {
+    "base_channels": 32,
+    "num_down": 4,
+    "max_channels": 256,
+    "norm_type": "group",
+    "num_groups": 8,
+    "use_strided_conv_down": true,
+    "bilinear": true,
+    "act": "gelu"
+   },
+   "parameters": 5488258,
+   "selected_epoch": 198,
+   "training_loss": "rel_l2+pi"
+  }
+ }
+}
