@@ -1,9 +1,9 @@
-# Generalizable electromagnetic field prediction — data and trained models
+# Generalization of electromagnetic surrogate models — data and trained models
 
 Test datasets and trained neural networks for
 
 > J. Kim, M. Park, C. Kang, H. Suk, and H. Chung,
-> *Generalizable electromagnetic field prediction for various dielectric materials and unseen nanophotonic structures* (2026).
+> *From random patterns to nanophotonic structures: Generalization of electromagnetic surrogate models* (2026).
 
 The networks were trained on random freeform dielectric patterns and evaluated, without retraining, on the structures below.
 All fields are two-dimensional TE solutions computed with a finite-difference frequency-domain (FDFD) solver.
@@ -49,7 +49,7 @@ Results differ from the paper only at the level of floating-point precision
 | `heldout_combinations_part{1..4}of4.h5` | 70,012 | Held-out geometry–permittivity combinations (Table 1) |
 | `aperiodic_bar_arrays.h5` | 13,900 | Aperiodic bar arrays (Table 1, Figure 3) |
 | `manually_defined_patterns.h5` | 2,641 | Manually defined patterns (Table 1, Figure 3) |
-| `inverse_designed_metalenses.h5` | 6,950 | Inverse-designed metalenses (Table 1, Figures 3 and 6) |
+| `inverse_designed_metalenses.h5` | 6,950 | Metalens-derived structures (Table 1, Figures 3 and 6) |
 | `inverse_designed_binary_structures.h5` | 6,950 | Inverse-designed binary structures (Table 1, Figure 3) |
 | `two_material_freeform_patterns.h5` | 5,000 | Two-material freeform patterns (Table 1, Figure 3) |
 | `structural_scale_sweep.h5` | 15,456 | Structural-scale sweep (Figure 7) |
