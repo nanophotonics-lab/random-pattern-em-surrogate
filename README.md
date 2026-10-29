@@ -46,15 +46,15 @@ Results differ from the paper only at the level of floating-point precision
 
 | File | Samples | Used in |
 |---|---:|---|
-| `heldout_combinations_part{1..4}of4.h5` | 70,012 | Held-out geometry–permittivity combinations (Table 1) |
-| `aperiodic_bar_arrays.h5` | 13,900 | Aperiodic bar arrays (Table 1, Figure 3) |
-| `manually_defined_patterns.h5` | 2,641 | Manually defined patterns (Table 1, Figure 3) |
-| `inverse_designed_metalenses.h5` | 6,950 | Metalens-derived structures (Table 1, Figures 3 and 6) |
-| `inverse_designed_binary_structures.h5` | 6,950 | Inverse-designed binary structures (Table 1, Figure 3) |
+| `heldout_combinations_part{1..4}of4.h5` | 70,012 | Held-out geometry–permittivity combinations (Tables 1 and 2, Figures 4 and 5) |
+| `aperiodic_bar_arrays.h5` | 13,900 | Aperiodic bar arrays (Tables 1 and 2, Figure 3) |
+| `manually_defined_patterns.h5` | 2,641 | Manually defined patterns (Tables 1 and 2, Figure 3) |
+| `inverse_designed_metalenses.h5` | 6,950 | Metalens-derived structures (Tables 1–3, Figures 3 and 6) |
+| `inverse_designed_binary_structures.h5` | 6,950 | Inverse-designed binary structures (Tables 1 and 2, Figure 3) |
 | `two_material_freeform_patterns.h5` | 5,000 | Two-material freeform patterns (Table 1, Figure 3) |
 | `structural_scale_sweep.h5` | 15,456 | Structural-scale sweep (Figure 7) |
-| `wavelength_fixed_grid_part{1,2}of2.h5` | 19,600 | Wavelength sweep, fixed 10 nm grid (Figure S1) |
-| `wavelength_scaled_grid.h5` | 15,680 | Wavelength sweep, grid scaled as λ/50 (Figure S1) |
+| `wavelength_fixed_grid_part{1,2}of2.h5` | 19,600 | Wavelength sweep, fixed 10 nm grid (Figures S1 and S2) |
+| `wavelength_scaled_grid.h5` | 15,680 | Wavelength sweep, grid scaled as λ/50 (Figures S1 and S2) |
 
 Each file is HDF5 with
 
@@ -71,6 +71,7 @@ Simulation setting (also stored as file attributes): vacuum wavelength 500 nm an
 128 × 64 cells (1280 × 640 nm); array index `[n, y, x]` with `y = 0` at the bottom; rows 0–7 substrate (ε<sub>r</sub> = 2.1),
 rows 8–20 design layer, rows 21–127 air; plane-wave illumination from the substrate side; lossless, nondispersive media;
 time convention exp(+jωt).
+In `inverse_designed_metalenses.h5` (metalens-derived structures), the non-material cells of the design layer have ε<sub>r</sub> = 2.1 instead of air.
 
 ## Trained models (`models/`)
 
@@ -80,7 +81,7 @@ time convention exp(+jωt).
 | `ffno.pt` | Factorized FNO (F-FNO) |
 | `unet.pt` | U-Net |
 | `dilresnet.pt` | Dilated residual network (DilResNet) |
-| `fno_wave_residual.pt`, `unet_wave_residual.pt` | FNO and U-Net trained with an additional wave-equation residual (Figure S14) |
+| `fno_wave_residual.pt`, `unet_wave_residual.pt` | FNO and U-Net trained with an additional normalized-output residual regularizer (Figure S14, Table S6) |
 
 Each `.pt` file is a PyTorch dictionary with `architecture`, `hyperparameters`, `state_dict`, `output_mean`, and `output_std`;
 `code/networks.py` builds the network from it (`load_model`). `model_cards.json` lists the hyperparameters, parameter counts, and the input/output convention used by `code/evaluate.py`:
